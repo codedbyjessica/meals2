@@ -1,11 +1,11 @@
 import React from 'react';
-
+import { db } from '../../firebase';
+import { ref, onValue } from "firebase/database";
 import DeleteRecipe from './delete';
 import EditMeals from './edit';
-import { db } from '../../firebase';
-import { ref, onValue, update } from "firebase/database";
+import AddMeal from './add';
 
-class ShowMeals extends React.Component {
+class Meals extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -80,7 +80,7 @@ class ShowMeals extends React.Component {
     renderRecipe(recipe) { 
         return (
             <div className={"meal-card" + (this.props.user ? " show-controls" : "")}>
-                <h4>{recipe.name}</h4>
+                <h3>{recipe.name}</h3>
                 {recipe.ingredients ? <div><strong>Ingredients: </strong> <ul>{recipe.ingredients.map((item, i) => this.renderItem(item, i))}</ul></div> : null}
                 {recipe.aromatics ? <div><strong>Aromatics: </strong> <ul>{recipe.aromatics.map((item, i) => this.renderItem(item, i))}</ul></div> : null}
                 {recipe.condiments ? <div><strong>Condiments: </strong> <ul>{recipe.condiments.map((item, i) => this.renderItem(item,i))}</ul></div> : null}
@@ -98,22 +98,22 @@ class ShowMeals extends React.Component {
     sortRecipes(e, tag) {
         e.preventDefault();
         const selectedTags = this.state.selectedTags;
-        const index = selectedTags.indexOf(tag);
-        if (index > -1) { // only splice array when item is found
-            selectedTags.splice(index, 1); // 2nd parameter means remove one item only
+        if (selectedTags.includes(tag)) {
+            const index = selectedTags.indexOf(tag);
+            selectedTags.splice(index, 1);
         } else {
             selectedTags.push(tag);
         }
 
         const recipes = this.state.allRecipes;
         const filteredRecipes = recipes.filter(r => {
-            return selectedTags.every( val => r.tags.indexOf(val) !== -1 )
+            return selectedTags.every( val => r.tags && r.tags.indexOf(val) !== -1 )
         })
 
         this.setState({recipes: filteredRecipes, selectedTags})
     }
 
-    resetSortRecipes(e) {
+    resetSortRecipes(e){
         e.preventDefault();
         this.setState({recipes: this.state.allRecipes, selectedTags: []})
     }
@@ -122,30 +122,39 @@ class ShowMeals extends React.Component {
         const tags = this.state.tags ? this.state.tags.map(t => t.toLowerCase()).sort() : [];
         if (this.state.recipes) {
             return (
-                <div>
-                    <h2>Recipes ({this.state.recipes.length})</h2>
-                    <div className="meals-tags">
-                        {tags.sort().map( (tag, i) => (
-                            <button key={i} className={this.state.selectedTags.includes(tag) ? 'selected' : ""} onClick={(e) => this.sortRecipes(e, tag)}>{tag}</button>
-                        ) )} 
-                        <button className="reset" onClick={e => this.resetSortRecipes(e)}>Reset</button>
+
+                <section className="meals">
+                    <div className='container'>
+                        <div>
+                            {this.props.user && <AddMeal user={this.props.user} onAddComplete={() => this.setState({recipes: this.state.allRecipes, selectedTags: []})} ></AddMeal>}
+                            <h2>Recipes ({this.state.recipes.length})</h2>
+                            <div className="meals-tags">
+                                {tags.sort().map( (tag, i) => (
+                                    <button key={i} className={this.state.selectedTags.includes(tag) ? 'selected' : ""} onClick={(e) => this.sortRecipes(e, tag)}>{tag}</button>
+                                ) )} 
+                                <button className="reset" onClick={e => this.resetSortRecipes(e)}>Reset</button>
+                            </div>
+                            {this.state.recipes.length === 0 ? 
+                            <div className='meals-none'>
+                                {this.state.selectedTags.length > 0 ? <div>No matching recipes <br /><br /> <button className="reset" onClick={e => this.resetSortRecipes(e)}>Reset</button></div> : "No recipes available"}
+                            </div> 
+                            : 
+                            <div className="meals-wrapper">
+                                {this.state.recipes.map( (recipe, i)  => (
+                                    <React.Fragment key={i}>{this.renderRecipe(recipe)}</React.Fragment>
+                                ))}
+                            </div>}
+
+                            {this.state.showEditRecipe ? <EditMeals recipeToEdit={this.state.showEditRecipe} closeModal={() => this.setState({showEditRecipe: null, recipes: this.state.allRecipes, selectedTags: []})} /> : null}
+
+                            {this.state.showDeleteConfirm ? <DeleteRecipe recipeToDelete={this.state.showDeleteConfirm} closeModal={() => this.setState({showDeleteConfirm: null, recipes: this.state.allRecipes, selectedTags: []})} />  : null}
+
+                        </div>
                     </div>
-                    {this.state.recipes.length === 0 ? 
-                    <div className='meals-none'>
-                        {this.state.selectedTags.length > 0 ? <div>No matching recipes <br /><br /> <button className="reset" onClick={e => this.resetSortRecipes(e)}>Reset</button></div> : "No recipes available"}
-                    </div> 
-                    : 
-                    <div className="meals-wrapper">
-                        {this.state.recipes.map( (recipe, i)  => (
-                            <React.Fragment key={i}>{this.renderRecipe(recipe)}</React.Fragment>
-                        ))}
-                    </div>}
+                </section>
 
-                    {this.state.showEditRecipe ? <EditMeals recipeToEdit={this.state.showEditRecipe} closeModal={() => this.setState({showEditRecipe: null})} /> : null}
 
-                    {this.state.showDeleteConfirm ? <DeleteRecipe recipeToDelete={this.state.showDeleteConfirm} closeModal={() => this.setState({showDeleteConfirm: null})} />  : null}
 
-                </div>
     
             );
         } else {
@@ -154,4 +163,4 @@ class ShowMeals extends React.Component {
 	}
 }
 
-export default ShowMeals;
+export default Meals;

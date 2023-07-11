@@ -17,6 +17,7 @@ const config = {
 
 const app = initializeApp(config);
 export const db = getDatabase(app);
+export const firestore = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
@@ -32,21 +33,19 @@ export const logInWithEmailAndPassword = async (email, password, onError) => {
     }
 };
 
-// export const registerWithEmailAndPassword = async (name, email, password) => {
-//     try {
-//       const res = await createUserWithEmailAndPassword(auth, email, password);
-//       const user = res.user;
-//       await addDoc(collection(db, "users"), {
-//             uid: user.uid,
-//             name,
-//             authProvider: "local",
-//             email,
-//       });
-//     } catch (err) {
-//         console.error(err);
-//         alert(err.message);
-//     }
-//   };
+export const registerWithEmailAndPassword = async (email, password, onError) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(firestore, "users"), {
+            uid: user.uid,
+            authProvider: "local",
+            email,
+      });
+    } catch (err) {
+        onError(err.message)
+    }
+  };
 
 
 export const sendPasswordReset = async (email, onSuccess, onError) => {

@@ -2,8 +2,9 @@ import React from 'react';
 import './App.scss';
 // import Signup from './components/signup'
 import Signin from './components/signin'
-import Meals from './components/meals'
 import { auth, logout } from './firebase';
+import Footer from './components/footer';
+import Meals from './components/meals/meals';
 
 class App extends React.Component {
 	constructor() {
@@ -37,7 +38,8 @@ class App extends React.Component {
 
 		return (
 			<div className='header-user'>
-				{userName ? <p>Welcome, <span>{userName}</span>! </p> : <p>Hello.</p>}
+				<h1><strong>Welcome to Jessy's Menu</strong></h1>
+				{userName ? <p>Logged in as, <span>{userName}</span>! </p> : <p>Sign in if you are Jessy</p>}
 
 				{this.state.user ? 
 					<div style={{marginTop: 10}}>
@@ -47,6 +49,7 @@ class App extends React.Component {
 					<div className="header-button-wrapper">
 						<Signin showAuthForm={this.showAuthForm} showForm={this.state.showForm}></Signin>
 						{this.state.showForm === "signin" && <button className='button-link' onClick={() => this.setState({showForm: null})}>Nevermind</button>}
+						{/* signup works but idk how to handle users collaborating yet */}
 						{/* <Signup showAuthForm={this.showAuthForm} showForm={this.state.showForm}></Signup> */}
 					</div>
 				}  
@@ -60,9 +63,7 @@ class App extends React.Component {
 			<main>
 				<header>{this.renderUser()}</header>
 				<Meals user={this.state.user} />
-				<footer>
-					just a place for <a href="https://codedbyjessica.com/" target="_blank" rel="noreferrer">me</a> to keep my recipes in one place <br />
-					</footer>
+				<Footer />
 			</main>
 		)
 	}

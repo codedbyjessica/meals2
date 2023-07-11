@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../firebase';
+import { registerWithEmailAndPassword } from '../firebase';
 
 class Signup extends React.Component {
 	constructor() {
@@ -8,7 +8,7 @@ class Signup extends React.Component {
             email: '',
             password: '',
             confirm: '',
-            errors: null,
+            message: null,
             // users: []
         }
         this.handleChange = this.handleChange.bind(this);
@@ -18,24 +18,20 @@ class Signup extends React.Component {
 	signup(e) {
         e.preventDefault();
         if (this.state.password !== this.state.confirm) {
-            this.setState({errors: 'Passwords do not match'})
+            this.setState({message: 'Passwords do not match'})
             return;
         }
 
 		if (this.state.password === this.state.confirm){
-			firebase.auth()
-                .createUserWithEmailAndPassword(this.state.email, this.state.password)
-			    .catch((error) => {
-					this.setState({errors: error.message})
-                })
+            const onError = errorMsg => this.setState({message: errorMsg})
+            registerWithEmailAndPassword(this.state.email, this.state.password, onError)
         }
     }
-
 
     handleChange(e) {
 		this.setState({
             [e.target.name]: e.target.value,
-            errors: null
+            message: null
 		});
 	}
 
@@ -56,7 +52,7 @@ class Signup extends React.Component {
                             <label htmlFor="confirm">Confirm: </label>
                             <input type="password" name="confirm" onChange={this.handleChange} />
                         </fieldset>
-                        { this.state.errors ? <div> {this.state.errors} </div> : null }
+                        { this.state.message ? <div> {this.state.message} </div> : null }
                         <button type="submit">Sign Up</button>
                     </form> 
                     : 

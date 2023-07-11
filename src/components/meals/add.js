@@ -49,6 +49,7 @@ class AddMeals extends React.Component {
             dateModified: new Date(),
             user: this.props.user.email
         }).then(() => {
+            this.props.onAddComplete()
             const el_form = document.querySelector('#add-recipe');
             const el_inputs = el_form.querySelectorAll('input');
             const el_textarea = el_form.querySelectorAll('textarea');
@@ -101,8 +102,10 @@ class AddMeals extends React.Component {
 	render() {
 		return (
             <div>
-                <br />
-                {this.state.showAddRecipeForm ? this.renderAddRecipeForm() : <button onClick={() => this.showAddRecipeForm(true)}>Add Recipe</button>}
+                {this.state.showAddRecipeForm ? 
+                    this.renderAddRecipeForm() 
+                    : 
+                    <button onClick={() => this.showAddRecipeForm(true)}>Add Recipe</button>}
             </div>
 		);
 	}

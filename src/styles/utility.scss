@@ -1,0 +1,19 @@
+@mixin desktop { @media (min-width: 481px) { @content; } }
+
+@mixin mobile  { @media (max-width: 480px) { @content; } }
+
+.hidden {
+    display: none;
+}
+
+.mobile-only {
+    @include desktop {
+      display: none !important;
+    }
+  }
+  
+  .desktop-only {
+    @include mobile() {
+      display: none !important;
+    }
+  }

@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%
+}
+
+body {
+    color: $color-copy;
+    font-family: 'Lato', sans-serif;
+    font-size: $font-size;
+    font-weight: 200;
+    letter-spacing: 0.01rem;
+    line-height: 2.2rem;
+}
+
+strong {
+    letter-spacing: 0.02rem;
+}
+
+h1, h2, h4{
+    font-weight: 300;
+    text-transform: capitalize;
+    line-height: auto;
+}
+
+h1 {
+    font-size: 5rem;
+    &.logo {
+        font-size: 6.4rem;
+        span {
+            font-size: 30px;
+            font-weight: normal;
+            margin: 3px 5px 3px 0px;
+        }
+        @include mobile {
+            font-size: 5rem;
+            span {
+                font-size: 24px;
+            }
+        }
+    }
+    @include mobile {
+        font-size: 4rem;
+    }
+}
+
+h2 {
+    font-size: 4rem;
+    @include mobile {
+        font-size: 3rem;
+    }
+}
+
+h3 {
+    font-size: 4rem;
+    text-transform: capitalize;
+    font-weight: 400;
+    margin-bottom: 0;
+
+    @include mobile {
+        font-size: 3.8rem;
+    }
+}
+
+h4 {
+    font-size: 2.4rem;
+}
+
+section {
+    padding: $common-gutter 0;
+    background: $color-background-secondary;
+    &:nth-of-type(2n+2) {
+        background: $color-background-primary;
+    }
+}
+
+button {
+    color: $color-primary;
+    background: white;
+    border: 1px solid $color-primary;
+    padding: 6px $common-gutter-sm;
+    outline: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    &:hover {
+        color: white;
+        background: $color-primary;
+    }
+}
+
+button.button-highlight {
+    background: $color-background-secondary;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    &:hover {
+        color: white;
+        background: $color-primary;
+    }
+}
+
+button.button-link {
+    text-decoration: none;
+    color: $color-primary;
+    background: transparent;
+    border: none;
+    padding: none;
+    border-radius: none;;
+    &:hover {
+        color: $color-copy;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: $color-primary;
+    font-weight: 400;
+    &:hover {
+        color: $color-copy;
+    }
+}
+
+ul, ol {
+    padding-left: 20px;
+    text-align: left;
+    @include mobile {
+        margin: 8px 0;
+    }
+}
+
+p {
+    margin: 8px 0;
+}
+
+fieldset {
+    border: none;
+}
+
+.container {
+    max-width: 1080px;
+    width: 80vw;
+    margin: 0 auto;
+    @include mobile {
+        width: 90vw;
+    }
+}
+
+.disclaimer {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+}
+
+.knockout-container {
+    background: white;
+    padding-top: $common-gutter-sm;
+}
+
+.modal {
+    h2 {
+        font-size: 24px;
+        margin-top: 0;
+    }
+    .modal-content {
+        background: white;
+        border-radius: $border-radius;
+        padding: $common-gutter;
+        position: fixed;
+        width: 400px;
+        max-width: 90vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: black;
+        z-index: 4;
+        .modal-buttons {
+            text-align: center;
+            margin-top: $common-gutter;
+        }
+        .modal-exit {
+            position: absolute;
+            top: 0;
+            border: none;
+            right: 10px;
+            &:hover {
+                background: none;
+                color: $color-primary;
+            }
+        }
+    }
+    .modal-overlay {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(40, 40, 40, 0.8);
+        z-index: 3;
+    }
+    .modal-scroll {
+        max-height: calc(90vh - 100px);
+        overflow-y: scroll;
+        h2 {
+            margin-top: 0;
+        }
+    }
+    .btn-submit {
+        margin-top: 24px;
+    }
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+}
+
+.header-user {
+    text-align: center;
+    margin-bottom: 20px
+}
+
+#signin {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    input {
+        display: block;
+        width: 100%;
+    }
+    fieldset {
+        max-width: 350px;
+    }
+}

@@ -1,0 +1,10 @@
+select, input, textarea {
+    border: none;
+    border-bottom: thin solid $color-secondary;
+    padding: 6px;
+    color: $color-primary;
+    border-radius: 0;
+}
+fieldset {
+    text-align: left;
+}

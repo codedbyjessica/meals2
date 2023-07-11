@@ -1,0 +1,91 @@
+.db {
+    background: $color-secondary;
+    color: white;
+    h3 {
+        margin-top: 40px;
+    }
+    fieldset {
+        padding-left: 0;
+        label {
+            margin-right: 10px;
+        }
+    }
+    button {
+        font-size: 1.4rem;
+    }
+    .db-invited-user-item {
+        color: $color-copy;
+        background: $color-background-primary;
+        display: flex;
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        border-top: thin solid $color-primary;
+        border-left: thin solid $color-primary;
+        border-right: thin solid $color-primary;
+        align-items: center;
+        &.responded {
+            font-weight: bold;
+        }
+        &:last-of-type {
+            border-bottom: thin solid $color-primary;
+        }
+        div {
+            padding: 5px;
+            width: 30%;
+            &:nth-of-type(1) {
+                width: 100px;
+            }
+            &:nth-of-type(2) {
+                width: calc(100% - 300px);
+            }
+            &:nth-of-type(3) {
+                width: 150px;
+                text-align: right;
+            }
+            &:nth-of-type(4) {
+                width: 50px;
+                text-align: center;
+            }
+        }
+        button {
+            margin-left: 5px;
+        }
+    }
+    .db-response-item {
+        color: $color-copy;
+        background: $color-background-primary;
+        display: flex;
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        border-top: thin solid $color-primary;
+        &:last-of-type {
+            border-bottom: thin solid $color-primary;
+        }
+        div {
+            padding: 5px;
+            border-left: thin solid $color-primary;
+            width: 100px;
+            &:nth-of-type(2),&:nth-of-type(3),&:nth-of-type(4),&:nth-of-type(5){
+                text-align: center;
+            }
+            &:last-of-type {
+                border-right: thin solid $color-primary;
+                width: 120px
+            }
+        }
+        .db-response-comments {
+            width: calc(100% - (100px * 5 + 120px));
+        }
+    }
+    .db-response-address {
+        padding: 5px;
+        color: $color-copy;
+        background: $color-background-primary;
+        display: flex;
+        font-size: 1.4rem;
+        line-height: 1.4rem;
+        border-top: thin solid $color-primary;
+        border-left: thin solid $color-primary;
+        border-right: thin solid $color-primary;
+    }
+}

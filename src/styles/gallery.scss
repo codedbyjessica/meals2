@@ -1,0 +1,26 @@
+
+.ReactGridGallery::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.ReactGridGallery_tile-icon-bar {
+    display: none;
+}
+
+.ReactGridGallery_tile-bottom-bar {
+    display: none;
+}
+
+#lightboxBackdrop {
+    .footer_60scne {
+        display: none;
+    }
+    button {
+        background: none;
+        &:hover svg path {
+            fill: $color-primary;
+        }
+    }
+}

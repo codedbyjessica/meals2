@@ -1,0 +1,127 @@
+.meal-button {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    top: 8px;
+    @include mobile() {
+        font-size: 14px;
+    }
+}
+
+.meals {
+    min-height: 90vh;
+    form fieldset {
+        padding: 10px 0;
+        margin: 0;
+        label {
+            display: block;
+            margin-bottom: 2px;
+        }
+        textarea, input {
+            display: block;
+            width: 100%;
+        }
+    }
+    .tags span {
+        margin: 5px;    
+        color: $color-copy;
+        background: white;
+        border: thin solid $color-secondary;
+        padding: 4px 6px;
+        border-radius: 4px;
+        display: inline-block;
+        font-size: 14px;
+    }
+    .meals-tags {
+        margin: 0 -5px;
+        button {
+            margin: 5px;    
+            display: inline-block;
+            &.selected {
+                background: $color-primary;
+                color: white;
+                // pointer-events: none;
+            }
+        }
+        .reset {
+            background: none;
+            border: none;
+            &:hover{
+                color: $color-secondary;
+            }
+        }
+    }
+}
+
+.meals-none {
+    text-align: center;
+    padding: 60px 0 40px 0;
+}
+
+.meals-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+    .meal-card.show-controls {
+        padding-bottom: 83px; // accomodate for controls.
+    }
+    .meal-card{
+        background: white;
+        color: $color-copy;
+        background: white;
+        border: thin solid $color-primary;
+        padding: 24px 12px;
+        border-radius: 4px;
+        width: calc(33% - 13.34px);
+        margin: 10px;
+        position: relative;
+        strong {
+            color: $color-primary;
+        }
+        &:nth-of-type(3n+3) {
+            margin-left: 0
+        }
+        &:nth-of-type(3n+1) {
+            margin-right: 0
+        }
+        @media (max-width: 920px) { 
+            width: calc(50% - 10px);
+            &:nth-of-type(2n+1) {
+                margin-left: 0;
+                margin-right: 10px;
+            }
+            &:nth-of-type(2n+2) {
+                margin-right: 0;
+                margin-left: 10px;
+            }
+        }
+        @include mobile() {
+            width: 100%;
+            margin: 10px 0;
+            &:nth-of-type(2n+1), &:nth-of-type(2n+2) {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        ul {
+            margin-top: 0;
+        }
+        h4 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: $color-copy;
+        }
+        .meal-card-controls {
+            text-align: center;
+            width: calc(100% -  24px);
+            padding: 12px 0 24px 0;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px dotted $color-primary;
+            button {
+                margin: 0 10px;
+            }
+        }
+    }
+}

@@ -6,7 +6,6 @@ class DeleteRecipe extends React.Component {
 
     handleRemoveFromDb(key) {
         this.props.closeModal()
-        console.log(key)
         remove(ref(db, '/recipes/' + key))
     }
 

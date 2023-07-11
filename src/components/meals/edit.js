@@ -49,8 +49,6 @@ class EditMeals extends React.Component {
     updateRecipe(e) {
         e.preventDefault();
         const { name, ingredients, condiments, aromatics, instructions, time, tags, key } = this.state;
-        console.log('name', name)
-        console.log('ingredients', ingredients)
 
         const ingredientsArr = ingredients ? ingredients.split(',').map(item => item.trim().toLowerCase()) : ingredients;
         const condimentsArr = condiments ? condiments.split(',').map(item => item.trim().toLowerCase()) : condiments;
@@ -69,7 +67,8 @@ class EditMeals extends React.Component {
             ingredients: ingredientsArr,
             condiments: condimentsArr,
             aromatics: aromaticsArr,
-            tags: tagsArr
+            tags: tagsArr,
+            dateModified: new Date()
         })
         .then(() => {
             this.setState({

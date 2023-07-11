@@ -7,7 +7,7 @@ class Meals extends React.Component {
 		return (
             <section className="meals">
                 <div className='container'>
-                    <AddMeal></AddMeal>
+                    <AddMeal user={this.props.user}></AddMeal>
                     <ShowMeal user={this.props.user}></ShowMeal>
                 </div>
             </section>

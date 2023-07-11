@@ -38,13 +38,16 @@ class AddMeals extends React.Component {
         }
 
         set(ref(db, 'recipes/' + key), {
-          name: name,
-          instructions: instructions,
-          time: time,
-          ingredients: ingredientsArr,
-          condiments: condimentsArr,
-          aromatics: aromaticsArr,
-          tags: tagsArr
+            name: name,
+            instructions: instructions,
+            time: time,
+            ingredients: ingredientsArr,
+            condiments: condimentsArr,
+            aromatics: aromaticsArr,
+            tags: tagsArr,
+            dateCreated: new Date(),
+            dateModified: new Date(),
+            user: this.props.user.email
         }).then(() => {
             const el_form = document.querySelector('#add-recipe');
             const el_inputs = el_form.querySelectorAll('input');

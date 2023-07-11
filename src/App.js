@@ -5,8 +5,6 @@ import Signin from './components/signin'
 import Meals from './components/meals'
 import { auth, logout } from './firebase';
 
-console.log(auth)
-
 class App extends React.Component {
 	constructor() {
 		super();
@@ -19,7 +17,6 @@ class App extends React.Component {
 
 	componentDidMount() {
 		auth.onAuthStateChanged((user) => {
-			console.log('user', user)
 			if (user) {
 				this.setState({ user });
 			} 

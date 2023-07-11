@@ -3,7 +3,7 @@ import React from 'react';
 import DeleteRecipe from './delete';
 import EditMeals from './edit';
 import { db } from '../../firebase';
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 
 class ShowMeals extends React.Component {
 	constructor() {
@@ -20,6 +20,7 @@ class ShowMeals extends React.Component {
 
     componentDidMount() {
         const recipes = ref(db, 'recipes/');
+
         onValue(recipes, (snapshot) => {
             const data = snapshot.val();
             const recipeKeys = Object.keys(data);
